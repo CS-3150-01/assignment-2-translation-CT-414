@@ -8,7 +8,7 @@ struct Node{
     int data;
     int isEmpty;
     struct Node *next;
-};
+} Node;
 struct Node node(int data, int isEmpty) {
     struct Node node = {.data = data, .next = NULL, .isEmpty = isEmpty};
     return node;
@@ -18,11 +18,17 @@ struct Node node(int data, int isEmpty) {
 struct Node* head = NULL;
 struct Node* tail = NULL;
 
+void init() {
+    struct Node* head = malloc(sizeof(struct Node));
+    struct Node* tail = malloc(sizeof(struct Node));
+}
+
 //addNode() will add a new node to the list    
 void addNode(int data) {    
     //Create a new node    
         //printf("Inner Head: %d\n", (*head).data);
-    struct Node newNode = node(data, 1);
+    struct Node* newNode = malloc(sizeof(struct Node));
+    *newNode = node(data, 1);
     //if(head != NULL) {
        // struct Node* headHolder = head;
    // } else {
@@ -33,12 +39,12 @@ void addNode(int data) {
     //Checks if the list is empty
     if(head == NULL) {
         //If list is empty, both head and tail will point to new node    
-        head = &newNode;
-        tail = &newNode;
+        head = newNode;
+        tail = newNode;
         printf("None");
     } else {
         //newNode will be added after tail such that tail's next will point to newNode
-        (*tail).next = &newNode;
+        (*tail).next = newNode;
        // if(headHolder == NULL) {}else{
          //   head = headHolder;
         //}
@@ -46,7 +52,7 @@ void addNode(int data) {
         printf("Inner Next: %d\n", 7);//((*head).next)->data);
         printf("Inner Tail: %d\n", (*tail).data);
         //newNode will become new tail of the list    
-        tail = &newNode;
+        tail = newNode;
     }
     return;  
 } 
@@ -71,6 +77,7 @@ void display() {
 
 
 int main() {
+    init();
     printf("Node 0: %d\n", node(0, true).data);
     head = NULL;
     //printf("Head: %d, %d\n", (*head).data, (*head).isEmpty);
@@ -84,7 +91,7 @@ int main() {
     printf("Nex: %d\n", ((*head).next)->data);
     printf("Tail: %d\n", (*tail).data);
 
-    //display();
+    display();
 
     return 0;
 }
